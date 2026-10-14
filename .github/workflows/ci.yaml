@@ -26,6 +26,7 @@ jobs:
 
     env:
       GO_ENV: test
+      DB_PORT: "5432"
 
     steps:
       - uses: actions/checkout@v4

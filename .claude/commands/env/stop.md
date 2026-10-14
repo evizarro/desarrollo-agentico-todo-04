@@ -27,7 +27,7 @@ Si no hay nada en marcha, informa de ello y termina.
 
 ## Comprobación
 
-`http://localhost:3000/healthz` ya no responde y nada de este repositorio sigue escuchando en los puertos `3000` ni `5432`.
+`http://localhost:3004/healthz` ya no responde y nada de este repositorio sigue escuchando en los puertos `3004` ni `5434`.
 
 ## Resultado
 

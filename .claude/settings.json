@@ -37,10 +37,10 @@
       "Bash(pgrep *)",
       "Bash(kill *)",
       "Bash(sleep *)",
-      "Bash(curl http://localhost:3000/*)",
-      "Bash(curl -s http://localhost:3000/*)",
-      "Bash(curl -fsS http://localhost:3000/*)",
-      "Bash(wget -q --spider http://localhost:3000/*)"
+      "Bash(curl http://localhost:3004/*)",
+      "Bash(curl -s http://localhost:3004/*)",
+      "Bash(curl -fsS http://localhost:3004/*)",
+      "Bash(wget -q --spider http://localhost:3004/*)"
     ],
     "deny": [
       "Read(./.env)",

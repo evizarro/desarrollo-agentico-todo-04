@@ -40,7 +40,7 @@ Lo que ocurre en una issue afecta a la Issue y lo que ocurre en un PR, a su Chan
 - Cada milestone alcanzado es el artefacto, dos puntos y el milestone (`changes_requested` del Change → `change:changes-requested`).
 - El tipo de la issue es `feature`, `bug` o `chore`. Si la issue ya trae una, respétala.
 - Los milestones terminales se observan sin etiqueta: `issue:closed` es la issue cerrada, `change:merged` es el PR integrado y `change:discarded`, el PR cerrado sin integrar.
-- `environment:ready` y `environment:released` no se proyectan: describen la máquina, no el caso. Se observan en local: la rama actual, que esté al día con `origin` y si `http://localhost:3000/healthz` responde.
+- `environment:ready` y `environment:released` no se proyectan: describen la máquina, no el caso. Se observan en local: la rama actual, que esté al día con `origin` y si `http://localhost:3004/healthz` responde.
 
 **Catálogo.** Son las únicas etiquetas que usa el adaptador. No inventes otras ni cambies su forma.
 

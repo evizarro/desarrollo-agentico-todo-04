@@ -15,7 +15,7 @@ Levanta la aplicación desde la raíz del repositorio. No mates procesos existen
 ## Comprobaciones previas
 
 1. Confirma que `docker compose` está disponible y que el daemon responde.
-2. Comprueba si los puertos `3000` o `5432` ya están ocupados.
+2. Comprueba si los puertos `3004` o `5434` ya están ocupados.
    - Si pertenecen a este proyecto y el servicio responde, reutilízalos.
    - Si pertenecen a otro proceso, informa del conflicto y detente. No lo finalices.
 
@@ -27,13 +27,13 @@ Levanta la aplicación desde la raíz del repositorio. No mates procesos existen
 3. Espera a que PostgreSQL figure como saludable en `docker compose ps`.
 4. Ejecuta `go mod download`.
 5. Inicia `buffalo dev` en segundo plano desde la raíz y conserva su salida para poder diagnosticar el arranque.
-6. Espera hasta que `http://localhost:3000/healthz` responda correctamente.
+6. Espera hasta que `http://localhost:3004/healthz` responda correctamente.
 
 ## Modo Docker completo
 
 1. Ejecuta `docker compose up --build -d`.
 2. Espera a que `db` y `app` figuren como saludables en `docker compose ps`.
-3. Comprueba `http://localhost:3000/healthz`.
+3. Comprueba `http://localhost:3004/healthz`.
 
 ## Resultado
 

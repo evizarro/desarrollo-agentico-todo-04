@@ -1,12 +1,19 @@
 package actions
 
 import (
+	"io/fs"
 	"net/url"
 	"strings"
 
 	"todo/models"
+	"todo/public"
 
 	"github.com/gofrs/uuid"
+)
+
+const (
+	pendingBadge   = `<span class="task-status task-status-pending">Pendiente</span>`
+	completedBadge = `<span class="task-status task-status-completed">Completada</span>`
 )
 
 func (as *ActionSuite) Test_TasksIndex_EmptyState() {
@@ -26,6 +33,67 @@ func (as *ActionSuite) Test_TasksIndex_ListsTasks() {
 	as.Contains(body, "Llamar al gestor")
 	as.Contains(body, "Publicar la oferta de empleo")
 	as.Contains(body, "Completada")
+}
+
+func (as *ActionSuite) Test_TasksIndex_ShowsVisibleStatusForEachTask() {
+	as.LoadFixture("tres tareas")
+
+	res := as.HTML("/").Get()
+	as.Equal(200, res.Code)
+
+	body := res.Body.String()
+	as.Equal(2, strings.Count(body, pendingBadge))
+	as.Equal(1, strings.Count(body, completedBadge))
+}
+
+func (as *ActionSuite) Test_TasksIndex_StatusFollowsToggle() {
+	task := &models.Task{Title: "Tarea con estado visible"}
+	verrs, err := as.DB.ValidateAndCreate(task)
+	as.NoError(err)
+	as.False(verrs.HasAny())
+
+	res := as.HTML("/").Get()
+	as.Equal(200, res.Code)
+	body := res.Body.String()
+	as.Equal(1, strings.Count(body, pendingBadge))
+	as.Equal(0, strings.Count(body, completedBadge))
+
+	res = as.HTML("/tasks/%s/toggle", task.ID).Put(url.Values{})
+	as.Equal(303, res.Code)
+
+	res = as.HTML("/").Get()
+	as.Equal(200, res.Code)
+	body = res.Body.String()
+	as.Equal(0, strings.Count(body, pendingBadge))
+	as.Equal(1, strings.Count(body, completedBadge))
+
+	res = as.HTML("/tasks/%s/toggle", task.ID).Put(url.Values{})
+	as.Equal(303, res.Code)
+
+	res = as.HTML("/").Get()
+	as.Equal(200, res.Code)
+	body = res.Body.String()
+	as.Equal(1, strings.Count(body, pendingBadge))
+	as.Equal(0, strings.Count(body, completedBadge))
+}
+
+func (as *ActionSuite) Test_Assets_TaskStatusIsNotVisuallyHidden() {
+	css, err := fs.ReadFile(public.FS(), "assets/app.css")
+	as.NoError(err)
+
+	for _, chunk := range strings.Split(string(css), "}") {
+		i := strings.Index(chunk, "{")
+		if i < 0 {
+			continue
+		}
+		selector := chunk[:i]
+		if strings.Contains(selector, ".sr-only") {
+			as.NotContains(selector, ".task-status")
+		}
+	}
+
+	as.Contains(string(css), ".task-status-pending")
+	as.Contains(string(css), ".task-status-completed")
 }
 
 func (as *ActionSuite) Test_TasksCreate_Valid() {

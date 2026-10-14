@@ -121,7 +121,7 @@ h1 {
 
 .task {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto;
+  grid-template-columns: 44px minmax(0, 1fr) auto auto;
   align-items: start;
   column-gap: 0.3rem;
   min-height: 61px;
@@ -196,6 +196,30 @@ h1 {
 
 .task-completed .completion-icon svg {
   opacity: 1;
+}
+
+.task-status {
+  align-self: center;
+  justify-self: end;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.task-status-pending {
+  color: #41413d;
+  background: #f6f6f2;
+  border-color: #dadad4;
+}
+
+.task-status-completed {
+  color: #245131;
+  background: #eef5e9;
+  border-color: #d5e4ce;
 }
 
 .task-actions {
@@ -379,8 +403,7 @@ input:focus-visible {
   border-top: 1px solid var(--color-border);
 }
 
-.sr-only,
-.task-status {
+.sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -434,7 +457,7 @@ input:focus-visible {
   }
 
   .task {
-    grid-template-columns: 36px minmax(0, 1fr) auto;
+    grid-template-columns: 36px minmax(0, 1fr) auto auto;
   }
 
   .task-toggle-button,

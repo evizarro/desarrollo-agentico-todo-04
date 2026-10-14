@@ -29,6 +29,7 @@
       "Bash(docker ps *)",
       "Bash(docker compose *)",
       "Bash(go *)",
+      "Bash(GO_ENV=test go test *)",
       "Bash(gofmt *)",
       "Bash(soda *)",
       "Bash(buffalo *)",

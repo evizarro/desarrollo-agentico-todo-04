@@ -22,14 +22,12 @@ document.addEventListener("submit", function (event) {
   button.setAttribute("aria-label", label + " tarea: " + task.querySelector(".task-title").textContent);
   button.setAttribute("title", label + " tarea");
 
-  if (completed && !status) {
+  if (!status) {
     status = document.createElement("span");
-    status.className = "task-status";
-    status.textContent = "Completada";
     task.insertBefore(status, task.querySelector(".task-actions"));
-  } else if (!completed && status) {
-    status.remove();
   }
+  status.className = "task-status " + (completed ? "task-status-completed" : "task-status-pending");
+  status.textContent = completed ? "Completada" : "Pendiente";
 
   fetch(form.action);
 });

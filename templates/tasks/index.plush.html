@@ -31,7 +31,9 @@
           </form>
           <span class="task-title"><%= t.Title %></span>
           <%= if (t.Completed) { %>
-            <span class="task-status">Completada</span>
+            <span class="task-status task-status-completed">Completada</span>
+          <% } else { %>
+            <span class="task-status task-status-pending">Pendiente</span>
           <% } %>
           <div class="task-actions">
             <a href="/tasks/<%= t.ID %>/edit" class="icon-action" aria-label="Editar tarea: <%= t.Title %>" title="Editar tarea">
